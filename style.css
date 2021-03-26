@@ -18,7 +18,7 @@ body {
 }
 
 @media (max-width:768px) {
-.aaa { text-align: center; }
+  .aaa { text-align: center; }
 }
 .centered-main-page-element {
   display: block;
@@ -72,8 +72,8 @@ input[type="text"] {
   line-height: 18px;
   height: 21px;
   padding: 0 9px;
-  border: 1px solid #dDd;
-  background: #FFF;
+  border: 1px solid #ddd;
+  background: #fff;
   border-radius: 6px;
   font-family: Lato, sans-serif;
   color: #888;
@@ -91,7 +91,7 @@ input#new-task {
   width: 318px;
 }
 p > button:hover {
-  color: #0FC57C;
+  color: #0fc57c;
 }
 
 /* Task list */
@@ -121,7 +121,7 @@ li >    input[type="text"] {
   width: 226px
 }
 li > button.delete:hover {
-  color: #CF2323;
+  color: #cf2323;
 }
 button.delete img {
   height: 2em;
