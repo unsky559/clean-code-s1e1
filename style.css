@@ -14,7 +14,7 @@ body {
   width: 100%;
 }
 .header .more-info {
-  font-family: fantasy, cursive;
+  font-family: 'Lato', sans-serif;
 }
 
 @media (max-width:768px) {
