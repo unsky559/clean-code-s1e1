@@ -7,43 +7,41 @@
 
 // Event handling, user interaction is what starts the code execution.
 
-let taskInput = document.getElementById("new-task");//Add a new task.
-let addButton = document.getElementsByTagName("button")[0];//first button
-let incompleteTaskHolder = document.getElementById("incomplete-tasks");//ul of #incomplete-tasks
-let completedTasksHolder = document.getElementById("completed-tasks");//completed-tasks
+let taskInput = document.querySelector("#new-task");//Add a new task.
+let addButton = document.querySelector(".add-task__button");//first button
+let incompleteTaskHolder = document.querySelector("#incomplete-tasks");//ul of #incomplete-tasks
+let completedTasksHolder = document.querySelector("#completed-tasks");//completed-tasks
 
 //New task list item
 const createNewTaskElement = (taskString) => {
 
   let listItem = document.createElement("li");
+  listItem.className = 'task';
   //input (checkbox)
   let checkBox = document.createElement("input");//checkbx
+  checkBox.type = "checkbox";
+  checkBox.className = "task__checkbox"
   //label
   let label = document.createElement("label");//label
+  label.innerText = taskString;
+  label.className = "task__label";
   //input (text)
   let editInput = document.createElement("input");//text
+  editInput.type = "text";
+  editInput.className = "task__input";
   //button.edit
   let editButton = document.createElement("button");//edit button
-
+  editButton.innerText = "Edit"; //innerText encodes special characters, HTML does not.
+  editButton.className = "task__button-edit";
   //button.delete
   let deleteButton = document.createElement("button");//delete button
+  deleteButton.className = "task__delete";
+
   let deleteButtonImg = document.createElement("img");//delete button image
-
-  label.innerText = taskString;
-  label.className = "task";
-
-  //Each elements, needs appending
-  checkBox.type = "checkbox";
-  editInput.type = "text";
-  editInput.className = "task";
-
-  editButton.innerText = "Edit"; //innerText encodes special characters, HTML does not.
-  editButton.className = "edit";
-
-  deleteButton.className = "delete";
   deleteButtonImg.src = "./remove.svg";
-  deleteButton.appendChild(deleteButtonImg);
+  deleteButtonImg.className = "task__delete-image";
 
+  deleteButton.appendChild(deleteButtonImg);
   //and appending.
   listItem.appendChild(checkBox);
   listItem.appendChild(label);
@@ -75,9 +73,9 @@ const editTask = function() {
 
   let listItem = this.parentNode;
 
-  let editInput = listItem.querySelector("input.task");
-  let label = listItem.querySelector("label.task");
-  let editBtn = listItem.querySelector(".edit");
+  let editInput = listItem.querySelector(".task__input");
+  let label = listItem.querySelector(".task__label");
+  let editBtn = listItem.querySelector(".task__button-edit");
   let containsClass = listItem.classList.contains("edit-mode");
   //If class of the parent is .edit-mode
   if(containsClass){
@@ -135,19 +133,17 @@ const ajaxRequest = () => {
 
 //The glue to hold it all together.
 
-
 //Set the click handler to the addTask function.
 addButton.onclick = addTask;
 addButton.addEventListener("click", addTask);
 addButton.addEventListener("click", ajaxRequest);
 
-
 let bindTaskEvents = (taskListItem, checkBoxEventHandler) => {
   console.log("bind list item events");
   //select ListItems children
-  let checkBox = taskListItem.querySelector("input[type=checkbox]");
-  let editButton = taskListItem.querySelector("button.edit");
-  let deleteButton = taskListItem.querySelector("button.delete");
+  let checkBox = taskListItem.querySelector(".task__checkbox");
+  let editButton = taskListItem.querySelector(".task__button-edit");
+  let deleteButton = taskListItem.querySelector(".task__delete");
 
   //Bind editTask to edit button.
   editButton.onclick = editTask;
