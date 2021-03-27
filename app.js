@@ -13,7 +13,7 @@ let incompleteTaskHolder = document.getElementById("incomplete-tasks");//ul of #
 let completedTasksHolder = document.getElementById("completed-tasks");//completed-tasks
 
 //New task list item
-let createNewTaskElement = function(taskString){
+const createNewTaskElement = (taskString) => {
 
   let listItem = document.createElement("li");
   //input (checkbox)
@@ -54,7 +54,7 @@ let createNewTaskElement = function(taskString){
 }
 
 
-let addTask = function(){
+const addTask = () => {
   console.log("Add Task...");
   //Create a new list item with the text from the #new-task:
   if (!taskInput.value) return;
@@ -69,14 +69,14 @@ let addTask = function(){
 
 //Edit an existing task.
 
-let editTask = function(){
+const editTask = function() {
   console.log("Edit Task...");
   console.log("Change 'edit' to 'save'");
 
   let listItem = this.parentNode;
 
-  let editInput = listItem.querySelector("input[type=text]");
-  let label = listItem.querySelector("label");
+  let editInput = listItem.querySelector("input.task");
+  let label = listItem.querySelector("label.task");
   let editBtn = listItem.querySelector(".edit");
   let containsClass = listItem.classList.contains("edit-mode");
   //If class of the parent is .edit-mode
@@ -96,7 +96,7 @@ let editTask = function(){
 
 
 //Delete task.
-let deleteTask = function(){
+const deleteTask = function() {
   console.log("Delete Task...");
 
   let listItem = this.parentNode;
@@ -107,7 +107,7 @@ let deleteTask = function(){
 
 
 //Mark task completed
-let taskCompleted = function(){
+const taskCompleted = function(){
   console.log("Complete Task...");
 
   //Append the task list item to the #completed-tasks
@@ -117,7 +117,7 @@ let taskCompleted = function(){
 }
 
 
-let taskIncomplete = function(){
+const taskIncomplete = function() {
   console.log("Incomplete Task...");
   //Mark task as incomplete.
   //When the checkbox is unchecked
@@ -129,7 +129,7 @@ let taskIncomplete = function(){
 
 
 
-let ajaxRequest = function(){
+const ajaxRequest = () => {
   console.log("AJAX Request");
 }
 
@@ -138,11 +138,11 @@ let ajaxRequest = function(){
 
 //Set the click handler to the addTask function.
 addButton.onclick = addTask;
-addButton.addEventListener("click",addTask);
-addButton.addEventListener("click",ajaxRequest);
+addButton.addEventListener("click", addTask);
+addButton.addEventListener("click", ajaxRequest);
 
 
-let bindTaskEvents = function(taskListItem,checkBoxEventHandler){
+let bindTaskEvents = (taskListItem, checkBoxEventHandler) => {
   console.log("bind list item events");
   //select ListItems children
   let checkBox = taskListItem.querySelector("input[type=checkbox]");
@@ -159,14 +159,13 @@ let bindTaskEvents = function(taskListItem,checkBoxEventHandler){
 
 //cycle over incompleteTaskHolder ul list items
 //for each list item
-for (let i = 0; i<incompleteTaskHolder.children.length;i++){
+for (let i = 0; i < incompleteTaskHolder.children.length; i++){
   //bind events to list items chldren(tasksCompleted)
   bindTaskEvents(incompleteTaskHolder.children[i],taskCompleted);
 }
 
-
 //cycle over completedTasksHolder ul list items
-for (let i = 0; i<completedTasksHolder.children.length;i++){
+for (let i = 0; i < completedTasksHolder.children.length; i++){
   //bind events to list items chldren(tasksIncompleted)
   bindTaskEvents(completedTasksHolder.children[i],taskIncomplete);
 }
