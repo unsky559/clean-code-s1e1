@@ -7,6 +7,25 @@
 
 // Event handling, user interaction is what starts the code execution.
 
+const taskList = [
+  {
+    label: "Pay Bills",
+    edit: false,
+    completed: false
+  },
+  {
+    label: "Go Shopping",
+    edit: true,
+    completed: false
+  },
+  {
+    label: "See the Doctor",
+    edit: false,
+    completed: true
+  },
+]
+
+
 let taskInput = document.querySelector("#new-task");//Add a new task.
 let addButton = document.querySelector(".add-task__button");//first button
 let incompleteTaskHolder = document.querySelector("#incomplete-tasks");//ul of #incomplete-tasks
@@ -67,11 +86,11 @@ const addTask = () => {
 
 //Edit an existing task.
 
-const editTask = function() {
+const editTask = function(listItem) {
   console.log("Edit Task...");
   console.log("Change 'edit' to 'save'");
 
-  let listItem = this.parentNode;
+  if(listItem.type) listItem = this.parentNode
 
   let editInput = listItem.querySelector(".task__input");
   let label = listItem.querySelector(".task__label");
@@ -105,28 +124,30 @@ const deleteTask = function() {
 
 
 //Mark task completed
-const taskCompleted = function(){
+const taskCompleted = function(listItem){
   console.log("Complete Task...");
-
   //Append the task list item to the #completed-tasks
-  let listItem = this.parentNode;
+  if(listItem.type) listItem = this.parentNode
+
+  listItem.querySelector('.task__checkbox').checked = true;
   completedTasksHolder.appendChild(listItem);
   bindTaskEvents(listItem, taskIncomplete);
 }
 
 
-const taskIncomplete = function() {
+const taskIncomplete = function(listItem) {
   console.log("Incomplete Task...");
   //Mark task as incomplete.
   //When the checkbox is unchecked
   //Append the task list item to the #incomplete-tasks.
-  let listItem = this.parentNode;
+  if(listItem.type) listItem = this.parentNode
+
+  listItem.querySelector('.task__checkbox').checked = false;
   incompleteTaskHolder.appendChild(listItem);
   bindTaskEvents(listItem,taskCompleted);
 }
 
-
-
+// TODO: ajaxRequest realization
 const ajaxRequest = () => {
   console.log("AJAX Request");
 }
@@ -153,22 +174,34 @@ let bindTaskEvents = (taskListItem, checkBoxEventHandler) => {
   checkBox.onchange = checkBoxEventHandler;
 }
 
-//cycle over incompleteTaskHolder ul list items
-//for each list item
-for (let i = 0; i < incompleteTaskHolder.children.length; i++){
-  //bind events to list items chldren(tasksCompleted)
-  bindTaskEvents(incompleteTaskHolder.children[i],taskCompleted);
+/**
+* Load your tasks according to taskList object
+* @namespace taskList -  object that represent a taskList.
+* @property {string} taskList.label - label of task
+* @property {boolean} taskList.completed - is the task completed
+* @property {boolean} taskList.edit - is the task in edit mode
+*/
+const loadTasks = function(taskList){
+  for(let i in taskList){
+    let task = taskList[i]
+    let taskElemnt = createNewTaskElement(task.label)
+
+    if(task.completed){
+      taskCompleted(taskElemnt)
+    }else{
+      taskIncomplete(taskElemnt)
+    }
+
+    if(task.edit) {
+      editTask(taskElemnt)
+    }
+  }
 }
 
-//cycle over completedTasksHolder ul list items
-for (let i = 0; i < completedTasksHolder.children.length; i++){
-  //bind events to list items chldren(tasksIncompleted)
-  bindTaskEvents(completedTasksHolder.children[i],taskIncomplete);
-}
-
+loadTasks(taskList);
 
 // Issues with usability don't get seen until they are in front of a human tester.
 
-// Prevent creation of empty tasks.
+// TODO: Prevent creation of empty tasks.
 
-// Change edit to save when you are in edit mode.
+// TODO: Change edit to save when you are in edit mode.
