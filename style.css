@@ -1,10 +1,4 @@
 /* Basic Style */
-body {
-  background-color: #f8f8f8;
-  color: #333;
-  font-family: 'Lato', sans-serif;
-}
-
 ul {
   margin: 0;
   padding: 0px;
@@ -20,7 +14,9 @@ button{
   outline: none;
 }
 
-button {
+.add-task__button,
+.task__button-edit,
+.task__delete{
   background: none;
   border: 0px;
   color: #888;
@@ -30,11 +26,19 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.add-task__button:hover,
+.task__button-edit:hover{
   color: #3a3A3a;
 }
 
-input[type="text"] {
+.body{
+  background-color: #f8f8f8;
+  color: #333;
+  font-family: 'Lato', sans-serif;
+}
+
+.task__input,
+.add-task__input {
   margin: 0;
   font-size: 18px;
   line-height: 18px;
@@ -47,7 +51,8 @@ input[type="text"] {
   color: #888;
 }
 
-input[type="text"]:focus {
+.task__input:focus,
+.add-task__input:focus {
   color: #333;
 }
 
@@ -99,8 +104,6 @@ input[type="text"]:focus {
   text-transform: uppercase;
 }
 
-
-
 /* New Task */
 .add-task__caption {
   display: block;
@@ -145,12 +148,12 @@ input[type="text"]:focus {
   transform: rotateZ(45deg);
   transition: transform 200ms ease-in;
 }
-.task__delete-image:hover {
+.task__delete:hover .task__delete-image{
   transform: rotateZ(0);
 }
 
 /* Completed */
-#completed-tasks .task__label {
+.completed-tasks .task__label {
   text-decoration: line-through;
   color: #888;
 }
