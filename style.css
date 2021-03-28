@@ -146,7 +146,7 @@ button{
 .task__delete-image {
   height: 2em;
   transform: rotateZ(45deg);
-  transition: transform 200ms ease-in;
+  transition: transform 200ms cubic-bezier(0.75,-0.65,0.35,2.0);
 }
 .task__delete:hover .task__delete-image{
   transform: rotateZ(0);
