@@ -58,15 +58,14 @@ input[type="text"]:focus {
   display: block;
   text-align: right;
 }
+@media (max-width:768px) {
+  .header { text-align: center; }
+}
 .header__image {
   width: 100%;
 }
 .header__link {
   font-family: 'Lato', sans-serif;
-}
-
-@media (max-width:768px) {
-  .header { text-align: center; }
 }
 
 .wrapper {
